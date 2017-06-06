@@ -3,16 +3,15 @@
     <head>
         <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
         <meta charset="utf-8">
-        <meta content=”initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width” name=”viewport” />
         <title>大转盘</title>
     </head>
     <style media="screen">
         *{ margin: 0; padding: 0 ;font-family: Arial, Helvetica, sans-serif; font-family: "微软雅黑";font-weight: normal;}
         ul,li{ list-style: none;}
-        body{ background: #dedede;width:100%;min-width:480px;overflow-x:hidden;}
+        body{ background: #dedede;width:100%;min-width:320px;overflow-x:hidden;}
 
         /*转盘盒*/
-        .wheel{margin:50px auto; position: relative; padding: 20px;width:400px;/*width:50%;*/min-width:400px;min-height: 400px; background: #d40; border-radius: 50%; box-shadow: inset 0 2px 0 2px rgba(255,255,255,.3), inset 0 -2px 0 2px rgba(0,0,0,.2), 1px 2px 2px rgba(0,0,0,.2);}
+        .wheel{margin:50px auto;position: relative; padding: 20px;width:400px;height:400px;background: #d40; border-radius: 50%; box-shadow: inset 0 2px 0 2px rgba(255,255,255,.3), inset 0 -2px 0 2px rgba(0,0,0,.2), 1px 2px 2px rgba(0,0,0,.2);}
         .wheel ul {list-style: none;}
         /*转盘上的亮点*/
         .wheel-light li{position: absolute; z-index: 10; top: 0; bottom: 0; left: 0; right: 0; opacity: .9; -moz-animation: "lightFlicker" 2s linear 0 infinite; -webkit-animation: "lightFlicker" 2s linear 0 infinite; -o-animation: "lightFlicker" 2s linear 0 infinite; -ms-animation: "lightFlicker" 2s linear 0 infinite; animation: "lightFlicker" 2s linear 0 infinite;}
@@ -34,39 +33,71 @@
         .wheel-list .thanks{position: relative; margin: 0 auto; padding-top: 20px; width: 1em; color: #900; font-size: 18px; font-weight: 700; text-shadow: 0 1px 0 rgba(255,255,255,.4);font-weight: normal;}
         .wheel-list .prize{position: relative; margin: 0 auto; padding-top: 20px; width: 50%; overflow: hidden; text-align: center; line-height: 25px; text-shadow: 0 1px 0 rgba(255,255,255,.5);}
         .wheel-light li:nth-child(2n){opacity: .5; -moz-animation-delay: 1s; -webkit-animation-delay: 1s; -o-animation-delay: 1s; -ms-animation-delay: 1s; animation-delay: 1s;}
-        /*按钮上的箭头*/
+        /*圆形按钮盒子*/
         .wheel-pointer{position: absolute; z-index: 30; top: 0; bottom: 0; left: 0; right: 0; margin: auto; width: 140px; height: 140px; border: 1px solid #e60; box-shadow: 0 0 2px 2px rgba(0,0,0,.1); border-radius: 50%;}
         .activity{position: relative; margin: 50px auto; padding: 0 25px 30px; width: 800px; overflow: hidden; border-bottom: 3px solid #e5e5e5; background: #fff; font: 12px/1.5 "microsoft yahei"; border-radius: 20px; box-shadow: 0 1px 6px 3px rgba(0,0,0,.1);}
+        /* 按钮箭头 */
         .wheel-pointer:before{position: absolute; top: -40px; left: 50%; display: block; width: 60px; height: 60px; border: 1px solid #e60; background: #fb0; content: ''; box-shadow: inset 1px 1px 0 rgba(255,255,255,.5); -moz-transform-origin: left top; -webkit-transform-origin: left top; -o-transform-origin: left top; -ms-transform-origin: left top; transform-origin: left top; -moz-transform: rotate(30deg) skewY(30deg); -webkit-transform: rotate(30deg) skewY(30deg); -o-transform: rotate(30deg) skewY(30deg); -ms-transform: rotate(30deg) skewY(30deg); transform: rotate(30deg) skewY(30deg);}
         .wheel-pointer:after{position: relative; display: block; width: 100%; height: 100%; background: #ffcc00; content: ''; border-radius: 50%; box-shadow: inset 1px 1px 0 rgba(255,255,255,.5); background: -moz-linear-gradient(-45deg, #ffcc00 0%, #ff8800 50%, #ffcc00 100%); background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#ffcc00), color-stop(50%,#ff8800), color-stop(100%,#ffcc00)); background: -webkit-linear-gradient(-45deg, #ffcc00 0%,#ff8800 50%,#ffcc00 100%); background: -o-linear-gradient(-45deg, #ffcc00 0%,#ff8800 50%,#ffcc00 100%); background: -ms-linear-gradient(-45deg, #ffcc00 0%,#ff8800 50%,#ffcc00 100%); background: linear-gradient(135deg, #ffcc00 0%,#ff8800 50%,#ffcc00 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffcc00', endColorstr='#ffcc00',GradientType=1 );}
         .wheel-pointer i{position: absolute; z-index: 35; top: -36px; left: 0; right: 0; margin: 0 auto; display: block; width: 60px; height: 60px; overflow: hidden;}
         .wheel-pointer i:before{display: block; width: 100%; height: 100%; content: ''; -moz-transform-origin: left top; -webkit-transform-origin: left top; -o-transform-origin: left top; -ms-transform-origin: left top; transform-origin: left top; -moz-transform: translateX(50%) rotate(30deg) skewY(30deg); -webkit-transform: translateX(50%) rotate(30deg) skewY(30deg); -o-transform: translateX(50%) rotate(30deg) skewY(30deg); -ms-transform: translateX(50%) rotate(30deg) skewY(30deg); transform: translateX(50%) rotate(30deg) skewY(30deg); background: rgb(255,178,0); background: -moz-linear-gradient(40deg, rgba(255,178,0,1) 0%, rgba(255,179,0,1) 45%, rgba(254,214,86,1) 46%, rgba(255,146,0,1) 90%); background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(255,178,0,1)), color-stop(45%,rgba(255,179,0,1)), color-stop(46%,rgba(254,214,86,1)), color-stop(90%,rgba(255,146,0,1))); background: -webkit-linear-gradient(40deg, rgba(255,178,0,1) 0%,rgba(255,179,0,1) 45%,rgba(254,214,86,1) 46%,rgba(255,146,0,1) 90%); background: -o-linear-gradient(40deg, rgba(255,178,0,1) 0%,rgba(255,179,0,1) 45%,rgba(254,214,86,1) 46%,rgba(255,146,0,1) 90%); background: -ms-linear-gradient(40deg, rgba(255,178,0,1) 0%,rgba(255,179,0,1) 45%,rgba(254,214,86,1) 46%,rgba(255,146,0,1) 90%); background: linear-gradient(50deg, rgba(255,178,0,1) 0%,rgba(255,179,0,1) 45%,rgba(254,214,86,1) 46%,rgba(255,146,0,1) 90%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb200', endColorstr='#ff9200',GradientType=1 );}
         /*圆形按钮*/
-        .wheel-btn{position: absolute; z-index: 40; top: 0; bottom: 0; left: 0; right: 0; margin: auto; padding: 10px; width: 100px; height: 100px;box-shadow: inset 0 1px 1px rgba(255,102,0,.4), inset 0 -1px 1px rgba(255,238,0,.4); background: -moz-linear-gradient(top, rgba(255,85,0,0.7) 0%, rgba(255,221,0,1) 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,85,0,0.7)), color-stop(100%,rgba(255,221,0,1))); background: -webkit-linear-gradient(top, rgba(255,85,0,0.7) 0%,rgba(255,221,0,1) 100%); background: -o-linear-gradient(top, rgba(255,85,0,0.7) 0%,rgba(255,221,0,1) 100%); background: -ms-linear-gradient(top, rgba(255,85,0,0.7) 0%,rgba(255,221,0,1) 100%); background: linear-gradient(to bottom, rgba(255,85,0,0.7) 0%,rgba(255,221,0,1) 100%); border-radius: 60px; }
+        .wheel-btn{position: absolute; z-index: 40; top: 0; bottom: 0; left: 0; right: 0; margin: auto; padding: 10px; width: 100px; height: 100px;box-shadow: inset 0 1px 1px rgba(255,102,0,.4), inset 0 -1px 1px rgba(255,238,0,.4); background: -moz-linear-gradient(top, rgba(255,85,0,0.7) 0%, rgba(255,221,0,1) 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,85,0,0.7)), color-stop(100%,rgba(255,221,0,1))); background: -webkit-linear-gradient(top, rgba(255,85,0,0.7) 0%,rgba(255,221,0,1) 100%); background: -o-linear-gradient(top, rgba(255,85,0,0.7) 0%,rgba(255,221,0,1) 100%); background: -ms-linear-gradient(top, rgba(255,85,0,0.7) 0%,rgba(255,221,0,1) 100%); background: linear-gradient(to bottom, rgba(255,85,0,0.7) 0%,rgba(255,221,0,1) 100%); border-radius:50%; }
         .wheel-btn strong{padding-top: 6px; display: block; color: #fff; font-size: 18px; text-shadow: 2px 0 0 #c30, -2px 0 0 #c30, 0 2px 0 #c30, 0 -2px 0 #c30, 1px 1px 0 #c30, -1px -1px 0 #c30, -1px 1px 0 #c30, -1px -1px 0 #c30, 0 2px 6px #a30;}
         .wheel-btn span{color: #ff0;position: relative; display: table-cell; vertical-align: middle; width: 100px; height: 100px; overflow: hidden; color: #ff0; font: 700 14px/25px 'microsoft yahei'; font-size: 16px; text-align: center; text-decoration: none; border-radius: 50%; box-shadow: -1px -1px 10px rgba(255,255,255,.5), 1px 1px 3px rgba(0,0,0,.4), inset -1px -2px 0 #a30; text-shadow: 1px 0 0 #c30, -1px 0 0 #c30, 0 1px 0 #c30, 0 -1px 0 #c30, 0 0 3px #fff; background: rgb(204,51,0); background: -moz-linear-gradient(top, rgba(204,51,0,1) 0%, rgba(255,221,0,1) 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(204,51,0,1)), color-stop(100%,rgba(255,221,0,1))); background: -webkit-linear-gradient(top, rgba(204,51,0,1) 0%,rgba(255,221,0,1) 100%); background: -o-linear-gradient(top, rgba(204,51,0,1) 0%,rgba(255,221,0,1) 100%); background: -ms-linear-gradient(top, rgba(204,51,0,1) 0%,rgba(255,221,0,1) 100%); background: linear-gradient(to bottom, rgba(204,51,0,1) 0%,rgba(255,221,0,1) 100%);}
         .wheel-btn span:after{position: absolute; bottom: 7px; right: 5px; display: block; width: 90px; height: 90px; content: ''; border-radius: 50%; opacity: .8; background: -moz-linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 30%); background: -webkit-gradient(linear, right bottom, left top, color-stop(0%,rgba(255,255,255,1)), color-stop(30%,rgba(255,255,255,0))); background: -webkit-linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 30%); background: -o-linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 30%); background: -ms-linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 30%); background: linear-gradient(-45deg, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 30%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#00ffffff',GradientType=1 );}
         /*转盘下的提示*/
-        .secenio{ /*width: 600px;*/max-width:600px;min-width:120px;/*width:50%;*/ background: #ffffff; margin: 0 auto; padding:50px;text-align:center;}
+        .secenio{ /*width: 600px;*/max-width:600px;min-width:120px;/*width:50%;*/ background: #ffffff; margin: 0 auto;/*padding:50px;*/margin:0 auto;padding:20px 0;text-align:center;}
         .secenio ul li strong{ width: 200px; display: inline-block; padding-left: 5px;}
         .secenio ul li span{ display: inline-block; width: 20px;}
         .secenio ul li i {font-style:normal;}
         /*转盘下的form*/
         .secenio label{display:inline-block;width:65%;height:35px;line-height:35px;margin:0 auto 10px;}
         .secenio label span{letter-spacing:3px;}
-        .secenio label input{width:280px;/*width:56.6%;*/height:32px;padding-left:10px;margin-left:10px;}
+        .secenio label input{width:280px;/*width:56.6%;*/height:28px;line-height:28px;padding-left:10px;margin-left:10px;}
         .secenio button{display:block;margin:0 auto;width:80px;/*width:13%;*/height:40px;border:none;background:#cc3300;color:#dedede;font-size:18px;cursor:pointer;}
 
+        /*  pad尺寸 */
         @media screen and (max-width:960px){
             .secenio{font-size:14px;}
             .secenio label span{font-size:14px;}
             .secenio label input{width:66.6%;}
             .secenio button{width:13%;height:35px;font-size:16px;}
         }
+        /* iPhone7plus、iPhone6plus  */
         @media screen and (max-width:480px){
+            .wheel{width:320px;height:320px;}
+            .wheel-list{width:320px;height:320px;}
+            .wheel-list li{width:320px;height:160px;}
+            .wheel-list .prize p{font-size:14px;}
+            .wheel-pointer{width: 112px; height: 112px;}
+            .wheel-pointer:before{width:48px; height:48px;top:-34px;}
+            .wheel-pointer i{width:48px; height:48px;top:-34px;}
+            .wheel-btn{width:80px;height:80px;padding:8px;}
+            .wheel-btn span{width:80px;height:80px;}
+            .wheel-btn strong{font-size:15px;}
             .secenio{font-size:12px;}
+            .secenio label{width:80%;height:32px;line-height:32px;}
             .secenio label span{font-size:12px;}
-            .secenio label input{width:56.6%;}
+            .secenio label input{width:56.6%;height:26px;line-height:26px;}
+            .secenio button{width:13%;height:30px;font-size:14px;}
+        }
+        /* iPhobe5、iPhone4 */
+        @media screen and (max-width:320px){
+            .wheel{width:280px;height:280px;}
+            .wheel-list{width:280px;height:280px;}
+            .wheel-list li{width:280px;height:140px;}
+            .wheel-list .prize p{font-size:12px;}
+            .wheel-pointer{width:98px;height: 98px;}
+            .wheel-pointer:before{width:42px; height:42px;top:-30px;}
+            .wheel-pointer i{width:42px; height:42px;top:-30px;}
+            .wheel-btn{width:70px;height:70px;padding:6px;}
+            .wheel-btn span{width:70px;height:70px;}
+            .wheel-btn strong{font-size:14px;}
+            .secenio{font-size:12px;}
+            .secenio label{width:80%;height:32px;line-height:32px;}
+            .secenio label span{font-size:12px;}
+            .secenio label input{width:56.6%;height:26px;line-height:26px;}
             .secenio button{width:13%;height:30px;font-size:14px;}
         }
     </style>
@@ -143,7 +174,6 @@
 		</div>
 
         <!-- 提示  str-->
-        <!--<style media="screen"></style>-->
         <!--<div class="secenio">
             <ul>
                 <li>一等奖 :<strong>iPhone6 plus </strong><span></span>总数量:<i>1</i></li>
@@ -199,7 +229,6 @@ window.onload = function (){
     //四等奖:0.19047619047619047619047619047619
     //鼓励奖:0.23809523809523809523809523809524
     //再接再励:0.28571428571428571428571428571429
-
     for(var i=1;i<=64;i++){
         turntable.splice(6,0,4);
     };
@@ -281,3 +310,4 @@ window.onload = function (){
         * */
     }
 }
+</script>
